@@ -1,13 +1,13 @@
 node {
-   stage 'Run Load Test'
-   echo 'Starting test with Jmeter'
-   bat """
-    CALL CD C:\\Users\\EBureacova\\apache-jmeter-5.4.1\\bin
-    CALL RD /S /Q C:\\Users\\EBureacova\\apache-jmeter-5.4.1\\bin\\BureacovaEntranceTask\\HTML
-    CALL DEL "C:\\Users\\EBureacova\\apache-jmeter-5.4.1\\bin\\BureacovaEntranceTask\\log.csv"
-    CALL jmeter.bat -n -t C:\\Users\\EBureacova\\apache-jmeter-5.4.1\\bin\\BureacovaEntranceTask\\TestPlanBureacovaUpdate.jmx ^
-        -l C:\\Users\\EBureacova\\apache-jmeter-5.4.1\\bin\\BureacovaEntranceTask\\log.csv -e -o C:\\Users\\EBureacova\\apache-jmeter-5.4.1\\bin\\BureacovaEntranceTask\\HTML ^
-        -Jduration=60 -Jusers=5 -jrampUp=10 -Jjmeterengine.force.system.exit=true
-    """
+   stage ('Run Load Test') {
+   echo 'Starting test with Taurus'
+   parallel (
+	BlazeMeterTest: {
+		dir ('Taurus-Repo') {
+			sh 'bzt TestPlanBureacovaUpdate.jmx -report'
+		}
+	}
+   ) 
    echo 'Test completed'
+   }
 }

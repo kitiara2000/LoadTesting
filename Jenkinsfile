@@ -1,22 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('Get values') {
-            input {
-                message "please enter values"
-                ok "Ok"
-                submitter "no matter"
-                parameters {
-                    string(name: 'duration', defaultValue: '60', description: 'What is duration')
-                    string(name: 'users', defaultValue: '5', description: 'How many users')
-                    string(name: 'rampUp', defaultValue: '10', description: 'rampUp')
-                }
-            }
-            steps {
-                echo "duration, ${duration}, users, ${users}, rampUp, ${rampUp}."
-            }
-        }
-        stage ('Run Load Test') {
+        stage ('Run Load Test with parameters') {
             steps {
                 echo 'Starting test with Jmeter'
                 bat """

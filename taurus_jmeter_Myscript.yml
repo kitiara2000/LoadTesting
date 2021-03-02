@@ -1,0 +1,7 @@
+---
+execution:
+- executor: jmeter
+  scenario:
+    script: TestPlanBureacovaUpdate.jmx
+    locations:
+      us-east-1: 1

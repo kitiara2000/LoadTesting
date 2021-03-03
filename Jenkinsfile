@@ -4,10 +4,10 @@ pipeline {
         stage ('Run Load Test using Taurus') {
             steps {
                 echo 'Starting test with Taurus'
-                bat 'bzt taurus_jmeter_Myscript.yml 
-                        -o execution.0.ramp-up=$rampUp 
-                        -o execution.0.concurrency=$users 
-                        -o execution.0.hold-for=$duration 
+                bat 'bzt taurus_jmeter_Myscript.yml         ^
+                        -o execution.0.ramp-up=$rampUp      ^
+                        -o execution.0.concurrency=$users   ^
+                        -o execution.0.hold-for=$duration   ^
                         -report'
                 echo 'Test completed'
             }
